@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/activity_signup_background"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.mukundwn.plog.otp_screen">
+
+    <EditText
+        android:id="@+id/phno"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="143dp"
+        android:textColorHint="#FFFF"
+        android:gravity="center"
+        android:inputType="number"
+        android:background="@drawable/edit_text"
+        android:hint="Enter phone number here" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phno"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/login_button_background"
+        android:text="Click here for OTP" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Verify OTP"
+        android:background="@drawable/login_button_background"/>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_below="@+id/phno"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:hint="Enter OTP"
+        android:inputType="number"
+        android:textColorHint="#FFFF" />
+
+
+</RelativeLayout>

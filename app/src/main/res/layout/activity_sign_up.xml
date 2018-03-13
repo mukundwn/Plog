@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_signup_background"
+    tools:context="com.example.mukundwn.plog.SignUpActivity">
+
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignStart="@+id/editText3"
+        android:layout_centerVertical="true"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="EMAIL"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#efefef" />
+
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="PASSWORD"
+        android:inputType="textPassword"
+        android:textColorHint="#efefef" />
+
+
+
+    <!--<Button-->
+        <!--android:id="@+id/img_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/editText5"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="48dp"-->
+        <!--android:background="@drawable/add_img_button"-->
+        <!--android:text="Add Image" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_above="@+id/img_button"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@drawable/img_button_background" />-->
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/editText5"
+        android:layout_alignStart="@+id/editText5"
+        android:layout_below="@+id/editText5"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="CONFIRM PASSWORD"
+        android:inputType="textPassword"
+        android:textColorHint="#FFFF" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp"
+        android:background="@drawable/login_button_background"
+        android:text="Click here to generate OTP" />
+
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/p1" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_above="@+id/editText4"
+        android:layout_alignLeft="@+id/editText5"
+        android:layout_alignStart="@+id/editText5"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="NAME"
+        android:inputType="textPersonName"
+        android:textColorHint="#FFF" />
+
+
+
+
+</RelativeLayout>

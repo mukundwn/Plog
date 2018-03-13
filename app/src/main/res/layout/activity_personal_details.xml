@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/activity_signup_background"
+    android:layout_height="match_parent"
+    tools:context="com.example.mukundwn.plog.PersonalDetails">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/img_button_background" />
+
+    <Button
+        android:id="@+id/img_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/add_img_button"
+        android:gravity="center"
+        android:text="Add Image" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:textSize="16dp"
+        android:layout_marginRight="12dp"
+        android:layout_toLeftOf="@+id/img_button"
+        android:layout_toStartOf="@+id/img_button"
+        android:gravity="center"
+        android:text="Personal Details"
+        android:textColor="#2b1f1f"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/img_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/edit_text"
+        android:hint="BLOOD GROUP"
+        android:gravity="center"
+        android:textColorHint="#FFF"/>
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/editText6"
+        android:layout_alignStart="@+id/editText6"
+        android:layout_below="@+id/editText6"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="AGE"
+        android:inputType="number"
+        android:textColorHint="#FFF" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/editText7"
+        android:layout_alignStart="@+id/editText7"
+        android:layout_below="@+id/editText7"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:background="@drawable/edit_text"
+        android:textColorHint="#FFF"
+        android:inputType="number"
+        android:hint="HEIGHT" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/editText8"
+        android:layout_alignStart="@+id/editText8"
+        android:layout_below="@+id/editText8"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:textColorHint="#FFF"
+        android:gravity="center"
+        android:background="@drawable/edit_text"
+        android:inputType="number"
+        android:hint="WEIGHT" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText9"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:gravity="center"
+        android:text="MONTHS OF PREGNANCY"
+        android:textColor="#FFF" />
+
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/editText9"
+        android:layout_alignStart="@+id/editText9"
+        android:layout_below="@+id/spinner"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="DOCTOR's NAME"
+        android:inputType="textPersonName"
+        android:textColorHint="#FFF" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_below="@+id/editText10"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="MARITAL STATUS"
+        android:textColor="#FFF" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_alignTop="@+id/textView5" />
+
+
+</RelativeLayout>
