@@ -64,39 +64,35 @@ public class SignUpActivity extends Activity {
                 email_id=email.getText().toString();
                 pw=password.getText().toString();
                 cnfpw=confirmpassword.getText().toString();
-                Firebase mRefChild0=mRef.child("Name");
-                Firebase mRefChild1=mRef.child("Email");
-                Firebase mRefChild2=mRef.child("Password");
-                Firebase mRefChild3=mRef.child("ConfirmPassword");
-                //mRef.push().setValue(u_name);
-                mRefChild0.setValue(u_name);
-                mRefChild1.setValue(email_id);
-                mRefChild2.setValue(pw);
-                mRefChild3.setValue(cnfpw);
-                Intent i = new Intent(getApplicationContext(), otp_screen.class);
-                startActivity(i);
+                if(pw.equals(cnfpw))
+                {
+                    Intent i = new Intent(getApplicationContext(), otp_screen.class);
+                    startActivity(i);
+                    String em=email.getText().toString().trim();
+                    String ps=password.getText().toString().trim();
 
-                String em=email.getText().toString().trim();
-                String ps=password.getText().toString().trim();
+                    firebaseAuth.createUserWithEmailAndPassword(em,ps).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                firebaseAuth.createUserWithEmailAndPassword(em,ps).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(getApplicationContext(),otp_screen.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else{
+                                FirebaseAuthException e = (FirebaseAuthException) task.getException();
+                                Toast.makeText(getApplicationContext(), "error" + " " + e.getMessage(), Toast.LENGTH_LONG).show();
 
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(getApplicationContext(),otp_screen.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else{
-                            FirebaseAuthException e = (FirebaseAuthException) task.getException();
-                            Toast.makeText(getApplicationContext(), "error" + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
 
                         }
+                    });
+                }
+                else
+                    Toast.makeText(SignUpActivity.this, "Passwords Don't Match, ReEnter", Toast.LENGTH_SHORT).show();
 
-
-                    }
-                });
 
             }
 

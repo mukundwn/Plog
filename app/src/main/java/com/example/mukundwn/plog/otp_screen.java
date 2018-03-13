@@ -65,24 +65,27 @@ public class otp_screen extends AppCompatActivity {
 
 
 
-        Toast.makeText(this, u_name, Toast.LENGTH_SHORT).show();
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(s.equals(edit1.getText().toString())) {
-                    Toast.makeText(getApplicationContext(),"OTP verification successful!!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), PersonalDetails.class);
-                    startActivity(i);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Sorry ,Wrong OTP entered!!", Toast.LENGTH_SHORT).show();
-                }
+                Intent i = new Intent(getApplicationContext(), PersonalDetails.class);
+                startActivity(i);
+//                if(s.equals(edit1.getText().toString())) {
+//                    Toast.makeText(getApplicationContext(),"OTP verification successful!!", Toast.LENGTH_SHORT).show();
+//                    Intent i = new Intent(getApplicationContext(), PersonalDetails.class);
+//                    startActivity(i);
+//                }
+//                else{
+//                    Toast.makeText(getApplicationContext(),"Sorry ,Wrong OTP entered!!", Toast.LENGTH_SHORT).show();
+//                }
             }
-        });
+      });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 s1=firebaseUser.getUid();
+                Toast.makeText(otp_screen.this, s1, Toast.LENGTH_SHORT).show();
                 String phnum=e.getText().toString();
                 String s2=firebaseUser.getEmail();
                 HashMap<String,Object> hashMap=new HashMap<>();
@@ -90,7 +93,6 @@ public class otp_screen extends AppCompatActivity {
                 hashMap.put("name",u_name);
                 hashMap.put("password",pw);
                 hashMap.put("phonenum",phnum);
-
                 firebaseFirestore.collection("users").document(s1).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

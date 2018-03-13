@@ -8,34 +8,96 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class PersonalDetails extends Activity {
-
-
+    EditText bloodgroup,age,height,weight,doc_name;
+    static String b_group,p_age,p_ht,p_wt,doc,months,marital;
     private static int RESULT_LOAD_IMAGE = 1;
     String s;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    Spinner s1,s2;
+    Button b;
     FirebaseFirestore firebaseFirestore;
+    String[] MonthsofPreg={"1","2","3","4","5","6","7","8","9","10"};
+    String[] MaritalStatus={"Married","Single","In a Relationship","Live In Relationship","Widowed"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details);
         firebaseAuth=FirebaseAuth.getInstance();
+        final FirebaseFirestore firebaseFirestore;
+        firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         s=firebaseUser.getUid();
+        s1=(Spinner)findViewById(R.id.spinner);
+        s2=(Spinner)findViewById(R.id.spinner2);
+        bloodgroup=(EditText)findViewById(R.id.editText6);
+        age=(EditText)findViewById(R.id.editText7);
+        height=(EditText)findViewById(R.id.editText8);
+        weight=(EditText)findViewById(R.id.editText9);
+        doc_name=(EditText)findViewById(R.id.editText10);
+        b=(Button)findViewById(R.id.button4);
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MonthsofPreg);
+        ArrayAdapter<String> adapter1=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MaritalStatus);
+        s1.setAdapter(adapter);
+        s2.setAdapter(adapter1);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                months=s1.getSelectedItem().toString();
+                b_group=bloodgroup.getText().toString();
+                p_age=age.getText().toString();
+                p_ht=height.getText().toString();
+                p_wt=weight.getText().toString();
+                doc=doc_name.getText().toString();
+                marital=s2.getSelectedItem().toString();
+                HashMap<String,Object> hashMap=new HashMap<>();
+                hashMap.put("BloodGroup",b_group);
+                hashMap.put("Age",p_age);
+                hashMap.put("Height",p_ht);
+                hashMap.put("Weight",p_wt);
+                hashMap.put("MonthsOfPreg",months);
+                hashMap.put("DoctorName",doc);
+                hashMap.put("MaritalStatus",marital);
+                firebaseFirestore.collection("Personal").document(s).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(PersonalDetails.this, "Personal Details have been saved", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(PersonalDetails.this, "Detail entering Failed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+            }
+        });
         Button buttonLoadImage = (Button) findViewById(R.id.img_button);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
