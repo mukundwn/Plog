@@ -1,7 +1,9 @@
 package com.example.mukundwn.plog;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,14 +23,23 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.HashMap;
+
+import static com.example.mukundwn.plog.SignUpActivity.email_id;
+import static com.example.mukundwn.plog.SignUpActivity.u_name;
 
 public class PersonalDetails extends Activity {
     EditText bloodgroup,age,height,weight,doc_name;
@@ -36,6 +48,7 @@ public class PersonalDetails extends Activity {
     String s;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    StorageReference mStorage;
     Spinner s1,s2;
     Button b;
     FirebaseFirestore firebaseFirestore;
@@ -58,6 +71,8 @@ public class PersonalDetails extends Activity {
         weight=(EditText)findViewById(R.id.editText9);
         doc_name=(EditText)findViewById(R.id.editText10);
         b=(Button)findViewById(R.id.button4);
+
+        mStorage= FirebaseStorage.getInstance().getReference();
 
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MonthsofPreg);
         ArrayAdapter<String> adapter1=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MaritalStatus);
@@ -87,6 +102,9 @@ public class PersonalDetails extends Activity {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(PersonalDetails.this, "Personal Details have been saved", Toast.LENGTH_SHORT).show();
+                            Intent i =new Intent(getApplicationContext(),Dashboard.class);
+                            startActivity(i);
+
                         }
                         else
                         {
@@ -118,6 +136,7 @@ public class PersonalDetails extends Activity {
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
+
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -131,13 +150,29 @@ public class PersonalDetails extends Activity {
             Bitmap bmp = null;
             try {
                 bmp = getBitmapFromUri(selectedImage);
+                sessionData s = new sessionData();
+                s.img = bmp;
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                byte[] b = baos.toByteArray();
+                String encoded = Base64.encodeToString(b, Base64.DEFAULT);
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(email_id,encoded);
+                editor.commit();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             ImageView imageView = (ImageView) findViewById(R.id.imageView2);
             imageView.setImageBitmap(bmp);
-
-
+            Uri uri=data.getData();
+            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(PersonalDetails.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                }
+           });
         }
 
 

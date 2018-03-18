@@ -45,7 +45,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(LoginActivity.this, "Username Password Match", Toast.LENGTH_SHORT).show();
+                            Intent i =new Intent(getApplicationContext(),Dashboard.class);
+                            startActivity(i);
+                            //Toast.makeText(LoginActivity.this, "Username Password Match", Toast.LENGTH_SHORT).show();
+                            finish();
                             FirebaseUser user = mAuth.getCurrentUser();
                         } else {
                             // If sign in fails, display a message to the user.
