@@ -78,23 +78,36 @@ public class Dashboard extends AppCompatActivity
         listView=(ListView)findViewById(R.id.hosp_list_view);
         final ArrayList<String> hosp_name=new ArrayList<>();
         final ArrayList<String> hosp_area=new ArrayList<>();
+        final ArrayList<String> hosp_city=new ArrayList<>();
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String city_name=search_item.getText().toString();
+                //Toast.makeText(getApplicationContext(), city_name, Toast.LENGTH_SHORT).show();
                 firebaseFirestore.collection("Hospitals").addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                         for(DocumentChange doc: documentSnapshots.getDocumentChanges()){
                             String name= doc.getDocument().getString("Name");
                             String area= doc.getDocument().getString("Area");
-                            hosp_name.add(name);
-                            hosp_area.add(area);
-
+                            String city=doc.getDocument().getString("City");
+                            if(city_name.equals(city))
+                            {
+                                //Toast.makeText(Dashboard.this, "Getting Hospitals in "+city_name, Toast.LENGTH_SHORT).show();
+                                hosp_name.add(name);
+                            }
                         }
                     }
                 });
                 ArrayAdapter adapter=new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,hosp_name);
                 listView.setAdapter(adapter);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                adapter.clear();
+
             }
         });
 
