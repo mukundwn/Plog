@@ -71,9 +71,7 @@ public class PersonalDetails extends Activity {
         weight=(EditText)findViewById(R.id.editText9);
         doc_name=(EditText)findViewById(R.id.editText10);
         b=(Button)findViewById(R.id.button4);
-
         mStorage= FirebaseStorage.getInstance().getReference();
-
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MonthsofPreg);
         ArrayAdapter<String> adapter1=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,MaritalStatus);
         s1.setAdapter(adapter);

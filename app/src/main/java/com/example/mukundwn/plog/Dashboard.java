@@ -1,7 +1,9 @@
 package com.example.mukundwn.plog;
 
+import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -52,6 +55,7 @@ public class Dashboard extends AppCompatActivity
     Bitmap b = null;
     ListView listView;
     Button search;
+    EditText search_item;
     FirebaseFirestore firebaseFirestore;
     ImageView i;
     String user_name;
@@ -67,6 +71,8 @@ public class Dashboard extends AppCompatActivity
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         search=(Button)findViewById(R.id.button6);
+        search_item=(EditText)findViewById(R.id.editText12);
+        String search_Text=search_item.getText().toString();
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         String email=firebaseUser.getEmail();
         listView=(ListView)findViewById(R.id.hosp_list_view);
@@ -125,7 +131,7 @@ public class Dashboard extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header=navigationView.getHeaderView(0);
-        
+
         e_mail = (TextView)header.findViewById(R.id.textView);
         e_mail.setText(email);
         View hView =  navigationView.getHeaderView(0);
@@ -175,14 +181,20 @@ public class Dashboard extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-           // item.setTitle("Hey");
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.view_personal) {
+            Intent i=new Intent(getApplicationContext(),ViewPersonalInfo.class);
+            startActivity(i);
+        } else if (id == R.id.edit_personal) {
+            Intent i=new Intent(getApplicationContext(),EditPersonalInfo.class);
+            startActivity(i);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.change_pw) {
+            Intent i=new Intent(getApplicationContext(),ChangePassword.class);
+            startActivity(i);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.feedback) {
+            Intent i=new Intent(getApplicationContext(),Feedback.class);
+            startActivity(i);
 
         }
 

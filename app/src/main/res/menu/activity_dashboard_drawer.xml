@@ -7,13 +7,13 @@
         <item
             android:id="@+id/view_personal"
             android:icon="@drawable/v_personal_info"
-            android:title="View Personal Info" />
+            android:title="View User Info" />
         <item
             android:id="@+id/edit_personal"
             android:icon="@drawable/e_personal_info"
             android:title="Edit Personal Info" />
         <item
-            android:id="@+id/change_pq"
+            android:id="@+id/change_pw"
             android:icon="@drawable/c_pw"
             android:title="Change Password" />
         <item

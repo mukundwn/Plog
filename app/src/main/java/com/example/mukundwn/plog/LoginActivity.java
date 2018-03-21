@@ -1,5 +1,6 @@
 package com.example.mukundwn.plog;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            progressDialog=ProgressDialog.show(LoginActivity.this,"Please Wait","While logging in",true);
                             Intent i =new Intent(getApplicationContext(),Dashboard.class);
                             startActivity(i);
                             //Toast.makeText(LoginActivity.this, "Username Password Match", Toast.LENGTH_SHORT).show();
