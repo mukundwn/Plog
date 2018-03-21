@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,8 +57,10 @@ public class Dashboard extends AppCompatActivity
     ListView listView;
     Button search;
     EditText search_item;
+    public String helpline;
     FirebaseFirestore firebaseFirestore;
     ImageView i;
+    public String city_name;
     String user_name;
     TextView e_mail,u_name;
     FirebaseAuth firebaseAuth;
@@ -76,13 +79,14 @@ public class Dashboard extends AppCompatActivity
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         String email=firebaseUser.getEmail();
         listView=(ListView)findViewById(R.id.hosp_list_view);
+        registerForContextMenu(listView);
         final ArrayList<String> hosp_name=new ArrayList<>();
         final ArrayList<String> hosp_area=new ArrayList<>();
         final ArrayList<String> hosp_city=new ArrayList<>();
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String city_name=search_item.getText().toString();
+               city_name=search_item.getText().toString();
                 //Toast.makeText(getApplicationContext(), city_name, Toast.LENGTH_SHORT).show();
                 firebaseFirestore.collection("Hospitals").addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -93,7 +97,6 @@ public class Dashboard extends AppCompatActivity
                             String city=doc.getDocument().getString("City");
                             if(city_name.equals(city))
                             {
-                                //Toast.makeText(Dashboard.this, "Getting Hospitals in "+city_name, Toast.LENGTH_SHORT).show();
                                 hosp_name.add(name);
                             }
                         }
@@ -154,6 +157,29 @@ public class Dashboard extends AppCompatActivity
             img.setImageBitmap(b);
         }
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu,v,menuInfo);
+        menu.setHeaderTitle("Select the action");
+        menu.add(0,v.getId(),0,"Contact number");
+        menu.add(0,v.getId(),1,"Email id");
+    }
+
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        if(item.getTitle()=="Contact number")
+        {
+            helpline="1066";
+            Toast.makeText(getApplicationContext(),"Retrieving Helpline number: "+helpline,Toast.LENGTH_LONG).show();
+
+        }
+        else if(item.getTitle()=="Email id")
+        {
+            Toast.makeText(getApplicationContext(),"Getting email id:  hospitals_"+city_name+"@gmail.com",Toast.LENGTH_LONG).show();
+        }
+        return true;
     }
 
     @Override
